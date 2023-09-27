@@ -1,2 +1,7 @@
 <%= @user.hobby %>
 <%= @user.profile %>
+<% if current_user.following?(@user) %>
+  <%= button_to "フォローを外す", user_relationship_path(@user), method: :delete %>
+<% else %>
+  <%= button_to "フォローする", user_relationships_path(@user) %>
+<% end %>

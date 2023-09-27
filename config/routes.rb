@@ -41,4 +41,8 @@ Rails.application.routes.draw do
       resources :events, only: %i[index]
     end
   end
+
+  resources :users do
+    resources :relationships, only: [:create, :destroy]
+  end
 end
