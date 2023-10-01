@@ -29,9 +29,9 @@
           <div id="js-follow-button-<%= event.user.id %>">
             <% if current_user.following?(event.user) %>
               <% relationship = current_user.active_relationships.find_by(followed_id: event.user.id) %>
-              <%= button_to "フォローを外す", user_relationship_path(user_id: current_user.id, id: relationship.id), method: :delete %>
+              <%= button_to "フォローを外す", user_relationship_path(user_id: current_user.id, id: relationship.id), method: :delete, remote: true %>
             <% else %>
-              <%= button_to "フォローする", user_relationships_path(event.user) %>
+              <%= button_to "フォローする", user_relationships_path(event.user), remote: true %>
             <% end %>
           </div>
         <% end %>
