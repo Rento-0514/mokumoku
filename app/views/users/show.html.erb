@@ -4,7 +4,8 @@
 <%= @user.profile %>
 <h2>follow</h2>
 <% if current_user.following?(@user) %>
-  <%= button_to "フォローを外す", user_relationship_path(@user), method: :delete %>
+  <% relationship = current_user.active_relationships.find_by(followed_id: @user.id) %>
+  <%= button_to "フォローを外す", user_relationship_path(user_id: current_user.id, id: relationship.id), method: :delete %>
 <% else %>
   <%= button_to "フォローする", user_relationships_path(@user) %>
 <% end %>
