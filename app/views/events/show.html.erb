@@ -112,7 +112,7 @@
         </div>
         <div class="card-body">
            <ul class="list-unstyled">
-             <%= render partial: 'events/attendee', collection: @event.attendees %>
+             <%= render partial: 'events/attendee', collection: @event.attendees, as: :attendee %>
            </ul>
         </div>
       </div>
