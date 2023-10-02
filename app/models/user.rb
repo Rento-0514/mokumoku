@@ -84,12 +84,12 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
-  #フォローする定義
+  # フォローする定義
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)
   end
 
-  #フォロー外す定義
+  # フォロー外す定義
   def unfollow(other_user)
     active_relationships.find_by!(followed_id: other_user.id).destroy
   end
