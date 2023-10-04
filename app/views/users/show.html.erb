@@ -1,0 +1,20 @@
+<h2>Name</h2>
+<%= @user.name %>
+<h2>hobby</h2>
+<%= @user.hobby %>
+<h2>profile</h2>
+<%= @user.profile %>
+<h2>follow</h2>
+<% if current_user.following?(@user) %>
+  <% relationship = current_user.active_relationships.find_by(followed_id: @user.id) %>
+  <%= button_to "フォローを外す", user_relationship_path(user_id: current_user.id, id: relationship.id), method: :delete %>
+<% else %>
+  <%= button_to "フォローする", user_relationships_path(@user) %>
+<% end %>
+
+<% if current_user.following?(@user) %>
+  <% relationship = current_user.active_relationships.find_by(followed_id: @user.id) %>
+  <%= link_to "フォローを外す", user_relationship_path(user_id: current_user.id, id: relationship.id), method: :delete %>
+<% else %>
+  <%= link_to "フォローする", user_relationships_path(@user), method: :post %>
+<% end %>

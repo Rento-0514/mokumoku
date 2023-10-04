@@ -3,6 +3,9 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id'
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id'
+  has_many :following, through: :active_relationships, source: :followed
   has_many :events, dependent: :destroy
   has_many :event_attendances, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -75,5 +78,19 @@ class User < ApplicationRecord
 
   def allow_liked_event_notification?
     notification_timings.liked_event.present?
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  # フォローする定義
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  # フォロー外す定義
+  def unfollow(other_user)
+    active_relationships.find_by!(followed_id: other_user.id).destroy
   end
 end

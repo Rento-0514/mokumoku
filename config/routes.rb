@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   get 'signup', to: 'users#new'
   post 'signup', to: 'users#create'
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create show]
   resources :events do
     collection do
       get :future
@@ -40,5 +40,9 @@ Rails.application.routes.draw do
     namespace :me do
       resources :events, only: %i[index]
     end
+  end
+
+  resources :users do
+    resources :relationships, only: [:create, :destroy]
   end
 end
